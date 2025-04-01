@@ -72,6 +72,7 @@ O Spring Boot permite configurar diferentes perfis de execução para a aplicaç
 Para definir qual perfil deve ser usado ao rodar a aplicação, é necessário configurar a variável de ambiente `SPRING_PROFILES_ACTIVE`. 
 
 Isso pode ser feito no "Edit Configurations" da IDE:
+
 ![image](https://github.com/user-attachments/assets/911f2eaa-dfe2-424e-b703-b396760d7c6e)
 
 Adicionando a seguinte configuração em "Environment Variables":
