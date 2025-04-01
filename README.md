@@ -84,4 +84,35 @@ SPRING_PROFILES_ACTIVE=dev
 
 Com essa configuração, a aplicação rodará em modo de desenvolvimento (`dev`). Para rodar em produção, basta alterar para `SPRING_PROFILES_ACTIVE=prd`.
 
+criar o banco postgres
+
+![image](https://github.com/user-attachments/assets/e9e6f647-36d7-42af-a353-22d8d74cd475)
+
+Usar as variaveis de ambiente pro arquivo yml ed produção
+![image](https://github.com/user-attachments/assets/504b900a-7988-42b1-91b6-ad792b7326c9)
+
+
+```
+# Essas configurações são usadas em produção com PostgreSQL
+spring:
+  datasource:
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE} # URL de conexão com o banco PostgreSQL
+    username: ${PGUSER} # Nome de usuário do banco de dados
+    password: ${PGPASSWORD} # Senha do banco de dados
+  jpa:
+    open-in-view: false # Desativa o "Open Session in View" para melhorar o desempenho
+    hibernate:
+      ddl-auto: create # cria as tabelas ao rodar
+
+```
+é preciso criar um novo perfil para produção, assim como o perfil de dev
+as variaveis de ambiente (exemplo: ${PGUSER}) tme que ser configuradas com as informações do banco criado
+![image](https://github.com/user-attachments/assets/b5e91296-dc47-4805-930d-c22ad8f8819d)
+
+depois de rodar pela primeira vez e criar as tabelas deve trocar o  ddl-auto para n criar de novo as tabelas todas as vezers
+```
+      ddl-auto: validate # Valida o esquema do banco de dados sem modificá-lo
+
+```
+essa configuração de servidor é feito aqui https://web.dio.me/lab/publicando-sua-api-rest-na-nuvem-usando-spring-boot-3-java-17-e-railway/learning/4dc5ad1f-6d76-4acf-8428-3db18d2d28e1
 
