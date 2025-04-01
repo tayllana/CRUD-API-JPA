@@ -18,37 +18,70 @@ O Figma foi utilizado para a abstração do domínio desta API, sendo útil na a
 ```mermaid
 classDiagram
   class User {
-    -String name
-    -Account account
-    -Feature[] features
-    -Card card
-    -News[] news
+    - Long id
+    - String name
+    - Account account
+    - Feature[] features
+    - Card card
+    - News[] news
   }
 
   class Account {
-    -String number
-    -String agency
-    -Number balance
-    -Number limit
-  }
-
-  class Feature {
-    -String icon
-    -String description
+    - Long id
+    - String number
+    - String agency
+    - Number balance
+    - Number limit
   }
 
   class Card {
-    -String number
-    -Number limit
+    - Long id
+    - String number
+    - Number limit
+  }
+
+  class BaseItem {
+    - Long id
+    - String icon
+    - String description
   }
 
   class News {
-    -String icon
-    -String description
   }
+
+  class Feature {
+  }
+
+  News --|> BaseItem
+  Feature --|> BaseItem
 
   User "1" *-- "1" Account
   User "1" *-- "N" Feature
   User "1" *-- "1" Card
   User "1" *-- "N" News
+
+
 ```
+
+## Configuração de Perfis (Profiles)
+O Spring Boot permite configurar diferentes perfis de execução para a aplicação. Utilizamos dois arquivos de configuração:
+
+- **`application-dev.yml`**: Contém configurações para o ambiente de desenvolvimento, utilizando o banco de dados H2.
+- **`application-prd.yml`**: Contém configurações para o ambiente de produção, utilizando PostgreSQL.
+
+Para definir qual perfil deve ser usado ao rodar a aplicação, é necessário configurar a variável de ambiente `SPRING_PROFILES_ACTIVE`. 
+
+Isso pode ser feito no "Edit Configurations" da IDE:
+
+![image](https://github.com/user-attachments/assets/911f2eaa-dfe2-424e-b703-b396760d7c6e)
+
+Adicionando a seguinte configuração em "Environment Variables":
+![image](https://github.com/user-attachments/assets/f17e5ef2-3204-48bf-93f3-db47c5df3c1c)
+
+```
+SPRING_PROFILES_ACTIVE=dev
+```
+
+Com essa configuração, a aplicação rodará em modo de desenvolvimento (`dev`). Para rodar em produção, basta alterar para `SPRING_PROFILES_ACTIVE=prd`.
+
+
