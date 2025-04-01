@@ -1,0 +1,26 @@
+# Essas configurações são somente para o localhost
+# Na produção é usado postgres ao invés de h2
+spring:
+  datasource:
+    url: jdbc:h2:mem:santander-bank # URL de conexão com o banco de dados H2 em memória
+    username: santander-bank # Nome de usuário do banco de dados
+    password: # Senha do banco de dados (vazia neste caso)
+  jpa:
+    show-sql: true # Exibir as queries SQL no console
+    open-in-view: false # Desativa o "Open Session in View" para melhorar o desempenho
+    hibernate:
+      # Estratégia de criação do esquema do banco de dados
+      # "create" cria as tabelas sempre que a aplicação inicia
+      # Outras opções: validate | update | create-drop
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true # Formatar as queries SQL no log para melhor leitura
+
+  h2:
+    console:
+      enabled: true # Ativar o console web do H2 para acessar os dados via navegador
+      path: /h2-console # Definir o caminho da URL para acessar o console do H2 no navegador
+      settings:
+        trace: false # Desativar rastreamento de queries para melhor desempenho
+        web-allow-others: false # Impedir acesso ao console de outros dispositivos na rede

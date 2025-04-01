@@ -1,0 +1,10 @@
+# Essas configurações são usadas em produção com PostgreSQL
+spring:
+  datasource:
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE} # URL de conexão com o banco PostgreSQL
+    username: ${PGUSER} # Nome de usuário do banco de dados
+    password: ${PGPASSWORD} # Senha do banco de dados
+  jpa:
+    open-in-view: false # Desativa o "Open Session in View" para melhorar o desempenho
+    hibernate:
+      ddl-auto: validate # Valida o esquema do banco de dados sem modificá-lo
