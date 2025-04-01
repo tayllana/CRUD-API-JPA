@@ -81,17 +81,72 @@ Adicionando a seguinte configuração em "Environment Variables":
 SPRING_PROFILES_ACTIVE=dev
 ```
 
-Com essa configuração, a aplicação rodará em modo de desenvolvimento (`dev`). Para rodar em produção, basta alterar para `SPRING_PROFILES_ACTIVE=prd`.
+Com essa configuração, a aplicação rodará em modo de desenvolvimento (`dev`). 
 
-criar o banco postgres
+## Estrutura da Aplicação: Model, Service, Controller
 
-![image](https://github.com/user-attachments/assets/e9e6f647-36d7-42af-a353-22d8d74cd475)
+- **Model**: Representa a estrutura do banco de dados e define como os dados serão armazenados e recuperados. Cada entidade mapeia uma tabela no banco de dados.
+  
+- **Service**: A camada de serviço contém a lógica de negócios. Ela é responsável por orquestrar as operações necessárias entre o controlador (Controller) e o repositório (Repository).
+  
+- **Controller**: O controlador é responsável por expor os endpoints da API. Ele gerencia as requisições e interage com a camada de serviço para fornecer a resposta adequada.
 
-Usar as variaveis de ambiente pro arquivo yml ed produção
-![image](https://github.com/user-attachments/assets/504b900a-7988-42b1-91b6-ad792b7326c9)
+## Dependências do Projeto
 
+Foi criado com as seguintes dependências usando o Spring Initializr:
 
+- **Spring Data JPA**: Para persistência de dados.
+- **PostgreSQL**: Banco de dados relacional utilizado para armazenar as informações.
+- **Spring Web**: Para criar a API RESTful.
+- **Lombok**: Para reduzir a verbosidade do código.
+- **Spring DevTools**: Para acelerar o desenvolvimento com reinicialização automática.
+- **H2 Database**: Para desenvolvimento local, quando necessário.
+
+[Link do Spring Initializr](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.4.4&packaging=jar&jvmVersion=17&groupId=com.my&artifactId=santander-bank&name=santander-bank&description=&packageName=com.my.santander-bank&dependencies=data-jpa,postgresql,web,lombok,devtools,h2)
+
+## Acesso ao Banco de Dados
+
+Para acessar o banco de dados H2 local, utilize o seguinte URL:
+
+- **URL do console do H2**: [http://localhost:8080/h2-console/](http://localhost:8080/h2-console/)
+
+## Documentação da API (Swagger)
+
+Para documentar a API, foi adicionada a dependência do Swagger no arquivo `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <version>2.2.0</version>
+</dependency>
 ```
+
+A documentação gerada pode ser acessada no seguinte URL:
+
+- **Swagger UI**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+## Deploy
+
+O deploy foi feito usando a plataforma **Railway**:
+
+- [Railway](https://railway.com/)
+
+### Configuração de Banco de Dados PostgreSQL para Produção
+
+### Passos para Criar o Banco no PostgreSQL
+
+1. Criar o banco de dados PostgreSQL.
+
+   ![image](https://github.com/user-attachments/assets/e9e6f647-36d7-42af-a353-22d8d74cd475)
+
+2. Configurar variáveis de ambiente no arquivo `application-prd.yml`.
+
+   Adicione as variáveis de ambiente para o arquivo de configuração de produção. Exemplo:
+   
+   ![image](https://github.com/user-attachments/assets/504b900a-7988-42b1-91b6-ad792b7326c9)
+
+```yaml
 # Essas configurações são usadas em produção com PostgreSQL
 spring:
   datasource:
@@ -101,17 +156,28 @@ spring:
   jpa:
     open-in-view: false # Desativa o "Open Session in View" para melhorar o desempenho
     hibernate:
-      ddl-auto: create # cria as tabelas ao rodar
-
+      ddl-auto: create # Cria as tabelas ao rodar pela primeira vez
 ```
-é preciso criar um novo perfil para produção, assim como o perfil de dev
-as variaveis de ambiente (exemplo: ${PGUSER}) tme que ser configuradas com as informações do banco criado
-![image](https://github.com/user-attachments/assets/b5e91296-dc47-4805-930d-c22ad8f8819d)
 
-depois de rodar pela primeira vez e criar as tabelas deve trocar o  ddl-auto para n criar de novo as tabelas todas as vezers
-```
+3. É necessário configurar as variáveis de ambiente, como `${PGUSER}`, com as informações do banco criado.
+
+   ![image](https://github.com/user-attachments/assets/b5e91296-dc47-4805-930d-c22ad8f8819d)
+
+### Alteração Após Primeira Execução
+
+Após a primeira execução, onde as tabelas são criadas automaticamente, altere a configuração `ddl-auto` para evitar que as tabelas sejam recriadas a cada execução.
+
+```yaml
+spring:
+  jpa:
+    hibernate:
       ddl-auto: validate # Valida o esquema do banco de dados sem modificá-lo
-
 ```
-essa configuração de servidor é feito aqui https://web.dio.me/lab/publicando-sua-api-rest-na-nuvem-usando-spring-boot-3-java-17-e-railway/learning/4dc5ad1f-6d76-4acf-8428-3db18d2d28e1
+
+## Configuração de Servidor
+
+Para realizar o deploy da aplicação na nuvem utilizando Railway, siga o tutorial descrito [aqui](https://web.dio.me/lab/publicando-sua-api-rest-na-nuvem-usando-spring-boot-3-java-17-e-railway/learning/4dc5ad1f-6d76-4acf-8428-3db18d2d28e1).
+```
+
+---
 
