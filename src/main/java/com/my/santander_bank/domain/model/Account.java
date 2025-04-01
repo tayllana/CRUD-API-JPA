@@ -19,10 +19,10 @@ public class Account {
 
     private String agency;
 
-    @Column(precision = 2, scale = 13)
+    @Column(precision = 13, scale = 2)
     private BigDecimal balance;
 
-    @Column(name = "additional_limit", precision = 2, scale = 13)
+    @Column(name = "additional_limit", precision = 13, scale = 2)
     private Number limit;
 
     public Long getId() {return id;}
@@ -39,5 +39,4 @@ public class Account {
 
     public Number getLimit() {return limit;}
     public void setLimit(Number limit) {this.limit = limit;}
-
 }
