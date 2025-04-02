@@ -1,4 +1,4 @@
-package com.my.santander_bank.domain.Controller;
+package com.my.santander_bank.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.my.santander_bank.domain.model.User;

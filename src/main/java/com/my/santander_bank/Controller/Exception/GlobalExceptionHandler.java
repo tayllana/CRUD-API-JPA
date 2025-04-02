@@ -1,4 +1,4 @@
-package com.my.santander_bank.domain.Controller.Exception;
+package com.my.santander_bank.Controller.Exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
