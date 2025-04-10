@@ -1,4 +1,4 @@
-# CRUD conta bancária
+# API de CRUD com JPA até o Deploy
 
 Java RESTful API
 ## Principais Tecnologias
